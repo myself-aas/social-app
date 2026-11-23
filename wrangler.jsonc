@@ -1,7 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // Keep this distinct from the "researchwithme" Worker, which currently serves
+  // the live Next.js editorial site. Deploying this SPA onto that Worker would
+  // replace researchwith.me with an app that has no published content yet.
   "name": "reme-web",
   "compatibility_date": "2026-11-01",
+  "workers_dev": true,
 
   // Expo web exports a static SPA into ./dist. Workers Static Assets serves it
   // straight from the edge: hashed bundles are immutable, and unknown paths fall

@@ -127,3 +127,38 @@ Decide one owner per repo:
 - point Workers Builds at this repo and give it `build:web:cf` + `dist` instead of `npm run build`.
 
 Having both active means every push produces a red check that has nothing to do with the code.
+
+## Using the dashboard's Workers Builds integration
+
+The account also has a **Workers Builds** Git integration bound to the service `researchwithme`.
+It cannot read `wrangler.jsonc` reliably for a non-Next.js app, so it needs explicit commands.
+Those settings live in the dashboard (Build settings) and need `Workers CI Write` on the API token
+if you want them changed programmatically.
+
+| Field | Value | Why |
+| --- | --- | --- |
+| Build command | `pnpm build:web:cf` | Uses the repo's package manager + Metro flags. Do **not** use `npx expo export` — `npx`/`npm` refuse this repo because `devEngines.packageManager` is pnpm (`EBADDEVENGINES`). |
+| Deploy command | `npx wrangler deploy --name reme-web` | `--name` overrides the build service's own name so it does not deploy onto `researchwithme`. |
+| Build variables | `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Both are inlined at build time. |
+| Build variables | `NODE_VERSION=24.22.1` | The repo pins Node `^24.22.1` in `devEngines`; the default build image is older. |
+
+### Do not deploy onto the `researchwithme` Worker
+
+That Worker serves the live Next.js editorial site. `--name researchwithme` would replace
+`researchwith.me` with this SPA, which currently has no published content — every surface would be
+an empty state. Keep this app on `reme-web` and attach a separate hostname such as
+`app.researchwith.me`. Rollback exists (Worker → Deployments → the previous Next.js deployment),
+but there is no reason to take the outage.
+
+### Variable names
+
+The app reads `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Supabase's older name for the same key is
+the **anon key**; `src/env/common.ts` accepts `EXPO_PUBLIC_SUPABASE_ANON_KEY` as an alias so a
+dashboard configured with the old name still builds a working data layer. If neither is set, the
+app compiles fine and silently ships with Supabase disabled — that is the failure mode to watch
+for after the first build.
+
+### If the deploy step fails
+
+Almost always `assets.directory`. `expo export --platform web` writes `./dist`, which is what
+`wrangler.jsonc` declares; override with `--assets ./dist` if a different build root is in use.
