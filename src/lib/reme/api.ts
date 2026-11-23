@@ -1,5 +1,4 @@
 import type {SupabaseClient} from '#/lib/supabase'
-
 import type {
   ContributionType,
   RemeContribution,

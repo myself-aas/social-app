@@ -2,7 +2,6 @@ import {useQuery, type UseQueryResult} from '@tanstack/react-query'
 
 import {useSupabaseMaybe} from '#/lib/supabase'
 import {STALE} from '#/state/queries'
-
 import {
   fetchContribution,
   fetchFeed,
