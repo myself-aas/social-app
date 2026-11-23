@@ -1,0 +1,72 @@
+name: Deploy web to Cloudflare
+
+# Builds the Expo web SPA and publishes it as a Workers Static Assets project.
+#
+# Required repository secrets:
+#   CLOUDFLARE_API_TOKEN   – token with "Workers Scripts: Edit" on the account
+#   CLOUDFLARE_ACCOUNT_ID  – account id from the Cloudflare dashboard
+#
+# Required repository variables (or secrets, if you prefer):
+#   EXPO_PUBLIC_SUPABASE_URL
+#   EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+#
+# EXPO_PUBLIC_* values are inlined into the JS bundle at build time, so they are
+# not runtime configuration — rebuilding is the only way to change them.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Accept these as repository variables OR secrets: the app cannot read them
+      # at runtime, and a build with empty values succeeds while shipping a
+      # bundle whose data layer is disabled. The guard below turns that silent
+      # failure into a red build.
+      - name: Build web bundle
+        env:
+          EXPO_PUBLIC_ENV: production
+          EXPO_PUBLIC_SUPABASE_URL: ${{ vars.EXPO_PUBLIC_SUPABASE_URL || secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY || secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.EXPO_PUBLIC_SUPABASE_ANON_KEY || secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$EXPO_PUBLIC_SUPABASE_URL" ]; then
+            echo "::error::EXPO_PUBLIC_SUPABASE_URL is empty. Add it as a repository variable or secret."
+            exit 1
+          fi
+          if [ -z "$EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY" ] && [ -z "$EXPO_PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "::error::Neither EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY nor EXPO_PUBLIC_SUPABASE_ANON_KEY is set."
+            exit 1
+          fi
+          pnpm build:web:cf
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          wranglerVersion: '4'

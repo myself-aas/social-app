@@ -16,6 +16,7 @@ import {useLingui} from '@lingui/react/macro'
 
 import {Provider as HideBottomBarBorderProvider} from '#/lib/hooks/useHideBottomBarBorder'
 import {QueryProvider} from '#/lib/react-query'
+import {Provider as SupabaseProvider} from '#/lib/supabase'
 import {ThemeProvider} from '#/lib/ThemeContext'
 import {Provider as TranslateOnDeviceProvider} from '#/lib/translation'
 import I18nProvider from '#/locale/i18nProvider'
@@ -249,7 +250,9 @@ function App() {
                                 <LandingProvider>
                                   <SafeAreaProvider
                                     initialMetrics={initialWindowMetrics}>
-                                    <InnerApp />
+                                    <SupabaseProvider>
+                                      <InnerApp />
+                                    </SupabaseProvider>
                                   </SafeAreaProvider>
                                 </LandingProvider>
                               </BottomSheetProvider>

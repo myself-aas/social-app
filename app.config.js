@@ -63,7 +63,7 @@ module.exports = function (_config) {
   return {
     expo: {
       version: VERSION,
-      name: 'Bluesky',
+      name: 'reme',
       slug: 'bluesky',
       scheme: 'bluesky',
       owner: 'blueskysocial',
@@ -72,7 +72,7 @@ module.exports = function (_config) {
       },
       icon: './assets/app-icons/ios_icon_default_next.png',
       userInterfaceStyle: 'automatic',
-      primaryColor: '#006AFF',
+      primaryColor: '#0077CD',
       ios: {
         supportsTablet: true,
         bundleIdentifier: 'xyz.blueskyweb.app',
@@ -239,7 +239,7 @@ module.exports = function (_config) {
       },
       web: {
         bundler: 'metro',
-        favicon: './assets/favicon.png',
+        favicon: './assets/branding/favicon.png',
       },
       updates: {
         url: 'https://updates.bsky.app/manifest',

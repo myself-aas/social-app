@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" font-family="Inter, system-ui, sans-serif">
+  <rect width="1200" height="820" fill="#FFFDFB"/>
+  <text x="64" y="76" font-size="34" font-weight="700" fill="#120E0B">reme.</text>
+  <text x="64" y="108" font-size="15" fill="#82715F">Brand skin: azure 205 and warm neutrals. Every value is a token in src/alf/brand.ts</text>
+
+  <!-- azure ramp -->
+  <text x="64" y="164" font-size="13" font-weight="600" fill="#55483A">PRIMARY / AZURE</text>
+  <g>
+    <rect x="64" y="180" width="76" height="76" rx="10" fill="#E6F4FF"/><text x="70" y="272" font-size="10" fill="#82715F">25</text>
+    <rect x="148" y="180" width="76" height="76" rx="10" fill="#C7E8FF"/><text x="154" y="272" font-size="10" fill="#82715F">50</text>
+    <rect x="232" y="180" width="76" height="76" rx="10" fill="#9ED7FF"/><text x="238" y="272" font-size="10" fill="#82715F">100</text>
+    <rect x="316" y="180" width="76" height="76" rx="10" fill="#66BFFF"/><text x="322" y="272" font-size="10" fill="#82715F">200</text>
+    <rect x="400" y="180" width="76" height="76" rx="10" fill="#26A5FF"/><text x="406" y="272" font-size="10" fill="#82715F">300</text>
+    <rect x="484" y="180" width="76" height="76" rx="10" fill="#008FF6"/><text x="490" y="272" font-size="10" fill="#82715F">400</text>
+    <rect x="568" y="180" width="76" height="76" rx="10" fill="#0077CD"/><text x="574" y="272" font-size="10" fill="#82715F">500</text>
+    <rect x="652" y="180" width="76" height="76" rx="10" fill="#0064AC"/><text x="658" y="272" font-size="10" fill="#82715F">600</text>
+    <rect x="736" y="180" width="76" height="76" rx="10" fill="#00518B"/><text x="742" y="272" font-size="10" fill="#82715F">700</text>
+    <rect x="820" y="180" width="76" height="76" rx="10" fill="#004271"/><text x="826" y="272" font-size="10" fill="#82715F">800</text>
+    <rect x="904" y="180" width="76" height="76" rx="10" fill="#00365D"/><text x="910" y="272" font-size="10" fill="#82715F">900</text>
+    <rect x="988" y="180" width="76" height="76" rx="10" fill="#002F50"/><text x="994" y="272" font-size="10" fill="#82715F">950</text>
+    <rect x="1072" y="180" width="64" height="76" rx="10" fill="#002946"/><text x="1078" y="272" font-size="10" fill="#82715F">975</text>
+  </g>
+
+  <!-- warm neutrals light -->
+  <text x="64" y="330" font-size="13" font-weight="600" fill="#55483A">NEUTRALS / WARM (LIGHT)</text>
+  <g>
+    <rect x="64" y="346" width="76" height="76" rx="10" fill="#FFFDFB" stroke="#E8DFD4"/><text x="70" y="438" font-size="10" fill="#82715F">0</text>
+    <rect x="148" y="346" width="76" height="76" rx="10" fill="#FAF6F1"/><text x="154" y="438" font-size="10" fill="#82715F">25</text>
+    <rect x="232" y="346" width="76" height="76" rx="10" fill="#F4EEE7"/><text x="238" y="438" font-size="10" fill="#82715F">50</text>
+    <rect x="316" y="346" width="76" height="76" rx="10" fill="#E8DFD4"/><text x="322" y="438" font-size="10" fill="#82715F">100</text>
+    <rect x="400" y="346" width="76" height="76" rx="10" fill="#D6C9B9"/><text x="406" y="438" font-size="10" fill="#82715F">200</text>
+    <rect x="484" y="346" width="76" height="76" rx="10" fill="#BFAF9C"/><text x="490" y="438" font-size="10" fill="#82715F">300</text>
+    <rect x="568" y="346" width="76" height="76" rx="10" fill="#A08F7C"/><text x="574" y="438" font-size="10" fill="#82715F">400</text>
+    <rect x="652" y="346" width="76" height="76" rx="10" fill="#82715F"/><text x="658" y="438" font-size="10" fill="#82715F">500</text>
+    <rect x="736" y="346" width="76" height="76" rx="10" fill="#6B5B4A"/><text x="742" y="438" font-size="10" fill="#82715F">600</text>
+    <rect x="820" y="346" width="76" height="76" rx="10" fill="#55483A"/><text x="826" y="438" font-size="10" fill="#82715F">700</text>
+    <rect x="904" y="346" width="76" height="76" rx="10" fill="#40362C"/><text x="910" y="438" font-size="10" fill="#82715F">800</text>
+    <rect x="988" y="346" width="76" height="76" rx="10" fill="#2E271F"/><text x="994" y="438" font-size="10" fill="#82715F">900</text>
+    <rect x="1072" y="346" width="64" height="76" rx="10" fill="#120E0B"/><text x="1078" y="438" font-size="10" fill="#82715F">1000</text>
+  </g>
+
+  <!-- sample light UI -->
+  <text x="64" y="510" font-size="13" font-weight="600" fill="#55483A">LIGHT THEME SAMPLE</text>
+  <rect x="64" y="526" width="500" height="240" rx="16" fill="#FFFDFB" stroke="#E8DFD4"/>
+  <circle cx="102" cy="566" r="18" fill="#D6C9B9"/>
+  <rect x="132" y="554" width="120" height="10" rx="5" fill="#120E0B"/>
+  <rect x="132" y="572" width="80" height="8" rx="4" fill="#A08F7C"/>
+  <rect x="88" y="604" width="452" height="9" rx="4.5" fill="#55483A"/>
+  <rect x="88" y="624" width="380" height="9" rx="4.5" fill="#55483A"/>
+  <rect x="88" y="660" width="120" height="36" rx="18" fill="#0077CD"/>
+  <text x="112" y="683" font-size="13" font-weight="600" fill="#FFFFFF">Follow</text>
+  <rect x="220" y="660" width="120" height="36" rx="18" fill="none" stroke="#E8DFD4"/>
+  <text x="252" y="683" font-size="13" font-weight="600" fill="#0077CD">Share</text>
+  <text x="88" y="732" font-size="13" fill="#008FF6">@reme.social</text>
+
+  <!-- sample dark UI -->
+  <text x="620" y="510" font-size="13" font-weight="600" fill="#55483A">DARK THEME SAMPLE</text>
+  <rect x="620" y="526" width="500" height="240" rx="16" fill="#120E0B"/>
+  <circle cx="658" cy="566" r="18" fill="#40362C"/>
+  <rect x="688" y="554" width="120" height="10" rx="5" fill="#FFFDFB"/>
+  <rect x="688" y="572" width="80" height="8" rx="4" fill="#82715F"/>
+  <rect x="644" y="604" width="452" height="9" rx="4.5" fill="#E8DFD4"/>
+  <rect x="644" y="624" width="380" height="9" rx="4.5" fill="#E8DFD4"/>
+  <rect x="644" y="660" width="120" height="36" rx="18" fill="#0077CD"/>
+  <text x="668" y="683" font-size="13" font-weight="600" fill="#FFFFFF">Follow</text>
+  <rect x="776" y="660" width="120" height="36" rx="18" fill="none" stroke="#40362C"/>
+  <text x="808" y="683" font-size="13" font-weight="600" fill="#26A5FF">Share</text>
+  <text x="644" y="732" font-size="13" fill="#008FF6">@reme.social</text>
+</svg>

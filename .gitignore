@@ -143,3 +143,7 @@ docs/superpowers/
 .pnpm-store/
 
 .argent
+
+# Cloudflare Workers local state
+.wrangler/
+.dev.vars

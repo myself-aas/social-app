@@ -160,3 +160,25 @@ export const APP_CONFIG_PROD_URL = `https://app-config.workers.bsky.app`
 export const APP_CONFIG_URL = IS_DEV
   ? (APP_CONFIG_DEV_URL ?? APP_CONFIG_PROD_URL)
   : APP_CONFIG_PROD_URL
+
+/**
+ * Supabase project URL and its publishable (client-safe) API key.
+ *
+ * Both are optional. When either is unset the app runs without Supabase, and
+ * `isSupabaseConfigured` in `#/lib/supabase` reports false.
+ *
+ * The publishable key is inlined into the client bundle by Expo, which is
+ * intended - it grants only what row level security allows. Never put a
+ * `service_role` or secret key in an `EXPO_PUBLIC_` variable.
+ *
+ * `EXPO_PUBLIC_SUPABASE_ANON_KEY` is accepted as an alias: Supabase renamed the
+ * anon key to "publishable key", and CI dashboards (Cloudflare Workers Builds,
+ * for one) are often configured with the older name. Reading both means a
+ * misnamed variable cannot silently ship an app with no data layer. The
+ * publishable name wins when both are set.
+ */
+export const SUPABASE_URL: string | undefined =
+  process.env.EXPO_PUBLIC_SUPABASE_URL
+export const SUPABASE_PUBLISHABLE_KEY: string | undefined =
+  process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY

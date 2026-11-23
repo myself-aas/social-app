@@ -1,0 +1,14 @@
+# Cloudflare Workers Static Assets headers for the reme web build.
+#
+# Expo emits content-hashed filenames under /_expo/static, so those are safe to
+# cache forever. Everything else is revalidated, which keeps index.html and the
+# app manifest fresh after a deploy.
+
+/_expo/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
