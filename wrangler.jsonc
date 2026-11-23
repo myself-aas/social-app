@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "reme-web",
+  "compatibility_date": "2026-11-01",
+
+  // Expo web exports a static SPA into ./dist. Workers Static Assets serves it
+  // straight from the edge: hashed bundles are immutable, and unknown paths fall
+  // back to index.html so client-side routes survive a hard refresh.
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application"
+  },
+
+  // SPA fallback conflicts with Workers' automatic 404 handling on some paths;
+  // run the asset worker first so index.html always wins.
+  "observability": {
+    "enabled": true
+  }
+}

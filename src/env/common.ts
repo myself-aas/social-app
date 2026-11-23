@@ -160,3 +160,18 @@ export const APP_CONFIG_PROD_URL = `https://app-config.workers.bsky.app`
 export const APP_CONFIG_URL = IS_DEV
   ? (APP_CONFIG_DEV_URL ?? APP_CONFIG_PROD_URL)
   : APP_CONFIG_PROD_URL
+
+/**
+ * Supabase project URL and its publishable (client-safe) API key.
+ *
+ * Both are optional. When either is unset the app runs without Supabase, and
+ * `isSupabaseConfigured` in `#/lib/supabase` reports false.
+ *
+ * The publishable key is inlined into the client bundle by Expo, which is
+ * intended - it grants only what row level security allows. Never put a
+ * `service_role` or secret key in an `EXPO_PUBLIC_` variable.
+ */
+export const SUPABASE_URL: string | undefined =
+  process.env.EXPO_PUBLIC_SUPABASE_URL
+export const SUPABASE_PUBLISHABLE_KEY: string | undefined =
+  process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY

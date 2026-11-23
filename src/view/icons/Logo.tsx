@@ -13,7 +13,7 @@ import {Image} from 'expo-image'
 import {useLogoVariant} from '#/view/icons/useLogoVariant'
 import {flatten, useTheme} from '#/alf'
 
-const ratio = 57 / 64
+const ratio = 100 / 86
 
 type Props = {
   allowVariants?: boolean
@@ -42,7 +42,7 @@ export const Logo = forwardRef(function LogoImpl(props: Props, ref) {
             ? require('../../../assets/kawaii.png')
             : require('../../../assets/kawaii_smol.png')
         }
-        accessibilityLabel="Bluesky"
+        accessibilityLabel="reme"
         accessibilityHint=""
         accessibilityIgnoresInvertColors
         style={[{height: size, aspectRatio: 1.4}]}
@@ -55,21 +55,25 @@ export const Logo = forwardRef(function LogoImpl(props: Props, ref) {
       fill="none"
       // @ts-expect-error it's fiiiiine
       ref={ref}
-      viewBox="0 0 64 57"
+      viewBox="10 6 86 100"
       {...rest}
       style={[{width: size, height: size * ratio}, styles]}>
       {gradient && (
         <Defs>
           <LinearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0" stopColor="#0A7AFF" stopOpacity="1" />
-            <Stop offset="1" stopColor="#59B9FF" stopOpacity="1" />
+            <Stop offset="0" stopColor="#008FF6" stopOpacity="1" />
+            <Stop offset="1" stopColor="#9ED7FF" stopOpacity="1" />
           </LinearGradient>
         </Defs>
       )}
 
       <Path
         fill={_fill}
-        d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"
+        d="M22 84C14 66 18 38 46 20C64 8 86 8 90 20C94 34 84 58 64 74C48 86 32 89 22 84Z"
+      />
+      <Path
+        fill={_fill}
+        d="M22 84C20 90 18 94 15.5 97.5C13 101 17.5 104 20.5 100.5C23.5 97 25 90 25 86Z"
       />
     </Svg>
   )

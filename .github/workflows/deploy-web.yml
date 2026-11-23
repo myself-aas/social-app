@@ -1,0 +1,58 @@
+name: Deploy web to Cloudflare
+
+# Builds the Expo web SPA and publishes it as a Workers Static Assets project.
+#
+# Required repository secrets:
+#   CLOUDFLARE_API_TOKEN   – token with "Workers Scripts: Edit" on the account
+#   CLOUDFLARE_ACCOUNT_ID  – account id from the Cloudflare dashboard
+#
+# Required repository variables (or secrets, if you prefer):
+#   EXPO_PUBLIC_SUPABASE_URL
+#   EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+#
+# EXPO_PUBLIC_* values are inlined into the JS bundle at build time, so they are
+# not runtime configuration — rebuilding is the only way to change them.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web bundle
+        env:
+          EXPO_PUBLIC_ENV: production
+          EXPO_PUBLIC_SUPABASE_URL: ${{ vars.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+        run: pnpm build:web:cf
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          wranglerVersion: '4'

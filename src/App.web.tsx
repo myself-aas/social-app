@@ -9,6 +9,7 @@ import {useLingui} from '@lingui/react/macro'
 
 import {Provider as HotkeysProvider} from '#/lib/hotkeys'
 import {QueryProvider} from '#/lib/react-query'
+import {Provider as SupabaseProvider} from '#/lib/supabase'
 import {ThemeProvider} from '#/lib/ThemeContext'
 import {Provider as TranslateOnDeviceProvider} from '#/lib/translation'
 import I18nProvider from '#/locale/i18nProvider'
@@ -230,7 +231,9 @@ function App() {
                           <LightboxStateProvider>
                             <PortalProvider>
                               <LandingProvider>
-                                <InnerApp />
+                                <SupabaseProvider>
+                                  <InnerApp />
+                                </SupabaseProvider>
                               </LandingProvider>
                             </PortalProvider>
                           </LightboxStateProvider>

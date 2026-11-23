@@ -2,11 +2,31 @@ import {
   createThemes,
   DEFAULT_PALETTE,
   DEFAULT_SUBDUED_PALETTE,
+  type Palette,
 } from '@bsky.app/alf'
 
+import {DIM_NEUTRALS, LIGHT_NEUTRALS, PRIMARY_RAMP} from '#/alf/brand'
+
+/*
+ * This fork's skin replaces upstream's cool neutral ramps with a warm one and
+ * the royal-blue brand ramp with azure. Everything else - semantic atoms,
+ * positive/negative colors, statics - still comes from ALF, so upstream fixes
+ * continue to flow through. See `#/alf/brand`.
+ */
+const remeLightPalette: Palette = {
+  ...DEFAULT_PALETTE,
+  ...LIGHT_NEUTRALS,
+  ...PRIMARY_RAMP,
+}
+const remeSubduedPalette: Palette = {
+  ...DEFAULT_SUBDUED_PALETTE,
+  ...DIM_NEUTRALS,
+  ...PRIMARY_RAMP,
+}
+
 const DEFAULT_THEMES = createThemes({
-  defaultPalette: DEFAULT_PALETTE,
-  subduedPalette: DEFAULT_SUBDUED_PALETTE,
+  defaultPalette: remeLightPalette,
+  subduedPalette: remeSubduedPalette,
 })
 
 export const themes = {
