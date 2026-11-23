@@ -162,3 +162,18 @@ for after the first build.
 
 Almost always `assets.directory`. `expo export --platform web` writes `./dist`, which is what
 `wrangler.jsonc` declares; override with `--assets ./dist` if a different build root is in use.
+
+## Deploying without touching the dashboard
+
+The dashboard trigger only wins because it is bound to the service. It does not have to be the
+thing that deploys:
+
+1. Merge to `main`. `.github/workflows/deploy-web.yml` runs, builds with `pnpm build:web:cf`, and
+   deploys to the `reme-web` Worker using `CLOUDFLARE_API_TOKEN` — no `Workers CI Write` needed,
+   because that scope only governs the Workers CI build config, not `wrangler deploy`.
+2. The stale `researchwithme` trigger will still fire on the same push and fail. It is noise until
+   someone with `Workers CI Write` disables it; it does not affect the `reme-web` deployment.
+
+`workflow_dispatch` cannot be used to deploy a branch before merge: GitHub returns `404` for
+`POST /actions/workflows/deploy-web.yml/dispatches` until the workflow file exists on the default
+branch. Once merged, manual re-deploys work from any branch.
