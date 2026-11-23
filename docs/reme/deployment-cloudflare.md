@@ -95,8 +95,12 @@ wrangler dev --port 8788          → GET /                    200, 6 980 B
                                     GET /_expo/static/…     Cache-Control: immutable
 ```
 
-`wrangler` is a **devDependency** (`^4.166.0`), so `pnpm install` supplies it; the workflow
-uses `cloudflare/wrangler-action` with its own pinned copy instead.
+`wrangler` is deliberately **not** a project dependency. `pnpm-workspace.yaml` sets
+`trustPolicy: 'no-downgrade'` with a 7-day window, so a freshly published wrangler release fails
+`pnpm install --frozen-lockfile` in CI before any code is checked. Wrangler is supplied out of
+band instead: `pnpm dlx wrangler@4` locally, and `cloudflare/wrangler-action` (which installs its
+own pinned copy) in CI. If you ever pin it in `package.json`, choose a release older than the
+trust window and expect to bump it on a delay.
 
 ## What you must supply to actually deploy
 
@@ -109,3 +113,17 @@ repository and the workflow will publish on the next push to `main`:
 - variable `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 
 Alternatively run `pnpm deploy:web` locally after `wrangler login`.
+
+## Watch out: two Cloudflare pipelines can collide
+
+The Cloudflare account also has a **Workers Builds** integration named `researchwithme` that
+builds on GitHub events. On PR #1 it ran against this Expo repo, tried the Next.js build, and
+failed (`Workers Builds: researchwithme`). It is not the pipeline described above.
+
+Decide one owner per repo:
+
+- keep Workers Builds bound to `myself-aas/ResearchWithME` (the Next.js app), and let this repo
+  deploy only through `.github/workflows/deploy-web.yml`; or
+- point Workers Builds at this repo and give it `build:web:cf` + `dist` instead of `npm run build`.
+
+Having both active means every push produces a red check that has nothing to do with the code.
